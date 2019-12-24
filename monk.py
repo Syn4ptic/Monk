@@ -12,9 +12,13 @@ from watchdog.events import LoggingEventHandler
 
 docs_formats = ['doc', 'odt', 'pdf' , 'rtf', 'tex', 'txt', 'wks', 'wpd', 'docx']
 
+def gather_files():
+    all_files = os.listdir()
+    return all_files
+    
+
 
 def check_filetype(ext):   #Checks for filetype and after that will return desire folder name 
-    print(ext[1:])
     if ext[1:] in docs_formats:
         return('Documents')
     else:
@@ -26,7 +30,9 @@ class Event(LoggingEventHandler):
     def on_modified(self, event):
         file_path, ext = os.path.splitext(event.src_path)
         full_path = file_path+ext
+        file_type = check_filetype(ext)
         filename = Path(full_path).stem
+        destination_path = str(os.path.join(os.getcwd(), file_type, ext[1:]))
         
 
     def on_created(self, event):
@@ -36,6 +42,7 @@ class Event(LoggingEventHandler):
         filename = Path(full_path).stem
         destination_path = str(os.path.join(os.getcwd(), file_type, ext[1:]))
         move_files(file_type, ext, full_path, destination_path, filename)
+        print(gather_files())
                 
 
 def move_files(file_type, ext, full_path, destination_path, filename):
@@ -66,9 +73,6 @@ def move_files(file_type, ext, full_path, destination_path, filename):
                 # print(new_name)
                 while True:      
                     new_name = os.path.join(os.getcwd(), str(file_type), ext[1:] , filename + '(' + str(num) + ')'+ ext)      
-                    print(num)
-                    print(new_name)
-                    print(full_path)
                     if not os.path.exists(new_name):
                         shutil.move(full_path, new_name)
                         break 
