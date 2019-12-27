@@ -27,13 +27,13 @@ exec_formats = ['apk', 'bat', 'cgi', 'pl', 'com', 'exe', 'gadget', 'jar', 'py', 
 exec_names = 'Applications'
 font_formats = ['fnt', 'fon', 'otf', 'ttf']
 font_names = 'Fonts'
-image_formats = ['ai', 'bmp', 'gif', 'ico', 'jpeg', 'jpg', 'png', 'ps', 'psd', 'svg', 'tif', 'tiff']
+image_formats = ['ai', 'bmp', 'gif', 'ico', 'jpeg', 'jpg', 'png', 'ps', 'psd', 'svg', 'tif', 'tiff', 'xcf']
 image_names = 'Images'
-internet_formats = ['har','asp', 'aspx', 'cer', 'cfm', 'cgi', 'css', 'htm', 'html', 'js', 'jsp', 'part', 'php', 'py', 'rss', 'xhtml', 'c', 'class', 'cpp', 'cs', 'h', 'java', 'sh', 'swift', 'vb' ]
+internet_formats = ['ps1','har','asp', 'aspx', 'cer', 'cfm', 'cgi', 'css', 'htm', 'html', 'js', 'jsp', 'part', 'php', 'py', 'rss', 'xhtml', 'c', 'class', 'cpp', 'cs', 'h', 'java', 'sh', 'swift', 'vb' ]
 internet_names = 'Programing'
 presentation_formats = ['key', 'odp', 'pps', 'ppt', 'pptx']
 presentation_names = 'Presentations'
-spreadsheet_formats = ['ods', 'xlr', 'xls', 'xlsx']
+spreadsheet_formats = ['ods', 'xlr', 'xls', 'xlsx', 'xlsm']
 spreadsheet_names = 'Spreadsheets'
 system_formats = ['bak', 'cab', 'cfg', 'cpl', 'cur', 'dll', 'dmp', 'drv', 'icns', 'ico', 'ini', 'ink', 'sys', 'tmp' ] 
 system_names = 'System Files'
@@ -91,7 +91,7 @@ def filecheck(f):
             pass
         return True
     except IOError as e:
-        print(e.errno)
+        # print(e.errno)
         if e.errno == 2:
             return 'Missing'
         else:
@@ -146,7 +146,7 @@ class Event(LoggingEventHandler):
 def move_files(file_type, ext, full_path, destination_path, filename):
     print(file_type)
     if file_type == "None":
-        print('Ext not found')
+        pass
     else:    
 
         try:
@@ -173,7 +173,6 @@ def move_files(file_type, ext, full_path, destination_path, filename):
         
         except OSError as e:
             if e.errno != errno.EEXIST:
-                print('File_exist')
                 num = 1
                 while True: 
                     if extension_folders == True:
@@ -200,7 +199,8 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
-    path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop\DEVStuff\Monk\Testfolder"
+    # path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop\DEVStuff\Monk\Testfolder"
+    path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop"
     print(path)
     
 
