@@ -108,7 +108,7 @@ class Event(LoggingEventHandler):
         for f in files:
             file_path, ext = os.path.splitext(f)
             full_path = file_path+ext
-            file_type = check_filetype(ext)
+            file_type = check_filetype(ext.lower())
             filename = Path(full_path).stem
             if extension_folders == True:
                 destination_path = str(os.path.join(path, file_type, ext[1:]))  
@@ -119,7 +119,7 @@ class Event(LoggingEventHandler):
     def on_created(self, event):
         file_path, ext = os.path.splitext(event.src_path)
         full_path = file_path+ext
-        file_type = check_filetype(ext)
+        file_type = check_filetype(ext.lower())
         filename = Path(full_path).stem
         if extension_folders == True:
             destination_path = str(os.path.join(path, file_type, ext[1:]))  
@@ -132,7 +132,7 @@ class Event(LoggingEventHandler):
         for f in files:
             file_path, ext = os.path.splitext(f)
             full_path = file_path+ext
-            file_type = check_filetype(ext)
+            file_type = check_filetype(ext.lower())
             filename = Path(full_path).stem
             if extension_folders == True:
                 destination_path = str(os.path.join(path, file_type, ext[1:]))  
@@ -199,7 +199,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
-    # path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop\DEVStuff\Monk\Testfolder"
+    #path = r"C:\Users\marcin.kawka\Downloads"
     path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop"
     print(path)
     
