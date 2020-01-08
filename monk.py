@@ -200,6 +200,7 @@ if __name__ == "__main__":
                         format='%(asctime)s - %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
     #path = r"C:\Users\marcin.kawka\Downloads"
+    #path = r"/storage/emulated/0/Download/"
     path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop"
     print(path)
     
