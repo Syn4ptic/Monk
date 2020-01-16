@@ -144,7 +144,7 @@ class Event(LoggingEventHandler):
             
 
 def move_files(file_type, ext, full_path, destination_path, filename):
-    print(file_type)
+    # print(file_type)
     if file_type == "None":
         pass
     else:    
@@ -200,8 +200,8 @@ if __name__ == "__main__":
                         format='%(asctime)s - %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
     #path = r"C:\Users\marcin.kawka\Downloads"
-    path = r"/storage/download/"
-    #path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop"
+    # path = r"/storage/download/"
+    path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop"
     print(path)
     
 
