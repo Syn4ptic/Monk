@@ -33,7 +33,7 @@ internet_formats = ['ps1','har','asp', 'aspx', 'cer', 'cfm', 'cgi', 'css', 'htm'
 internet_names = 'Programing'
 presentation_formats = ['key', 'odp', 'pps', 'ppt', 'pptx']
 presentation_names = 'Presentations'
-spreadsheet_formats = ['ods', 'xlr', 'xls', 'xlsx', 'xlsm']
+spreadsheet_formats = ['ods', 'xlr', 'xls', 'xlsx', 'xlsm', 'xlsb', 'tsv']
 spreadsheet_names = 'Spreadsheets'
 system_formats = ['bak', 'cab', 'cfg', 'cpl', 'cur', 'dll', 'dmp', 'drv', 'icns', 'ico', 'ini', 'ink', 'sys', 'tmp' ] 
 system_names = 'System Files'
@@ -114,7 +114,10 @@ class Event(LoggingEventHandler):
                 destination_path = str(os.path.join(path, file_type, ext[1:]))  
             else: 
                 destination_path = str(os.path.join(path, file_type)) 
-            move_files(file_type, ext, full_path, destination_path, filename)
+            if full_path == destination_path + "\\" + filename  + ext:
+                pass
+            else:
+                move_files(file_type, ext, full_path, destination_path, filename)
 
     def on_created(self, event):
         file_path, ext = os.path.splitext(event.src_path)
@@ -125,7 +128,12 @@ class Event(LoggingEventHandler):
             destination_path = str(os.path.join(path, file_type, ext[1:]))  
         else: 
             destination_path = str(os.path.join(path, file_type)) 
-        move_files(file_type, ext, full_path, destination_path, filename)
+        if full_path == destination_path + "\\" + filename  + ext:
+            pass
+        else:
+            move_files(file_type, ext, full_path, destination_path, filename)
+                
+        
         # print(gather_files())
     def on_moved(self, event):
         files = gather_files()
@@ -138,7 +146,10 @@ class Event(LoggingEventHandler):
                 destination_path = str(os.path.join(path, file_type, ext[1:]))  
             else: 
                 destination_path = str(os.path.join(path, file_type))  
-            move_files(file_type, ext, full_path, destination_path, filename)
+            if full_path == destination_path + "\\" + filename  + ext:
+                pass
+            else:
+                move_files(file_type, ext, full_path, destination_path, filename)
 
 
             
@@ -170,6 +181,7 @@ def move_files(file_type, ext, full_path, destination_path, filename):
                 print('File is missing skipping...')
             else:
                 shutil.move(full_path, destination_path)
+             
         
         except OSError as e:
             if e.errno != errno.EEXIST:
@@ -199,15 +211,15 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s - %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
-    #path = r"C:\Users\marcin.kawka\Downloads"
+    path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop\DEVStuff\Monk\Testfolder"
     # path = r"/storage/download/"
-    path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop"
+    #path = r"C:\Users\marcin.kawka\OneDrive - DSV\Desktop"
     print(path)
     
 
     event_handler = Event()
     observer = Observer()
-    observer.schedule(event_handler, path, recursive=False)
+    observer.schedule(event_handler, path, recursive=True)
     observer.start()
     try:
         while True:
